@@ -134,71 +134,16 @@ public class PlaneManagement {
         String row= scanner.next().toUpperCase();
 
         if(row.equals("A")){
-            if(scanner.hasNextInt()){
-                int seatNum = scanner.nextInt();
-                    if (seatRowA[seatNum-1]==1){
-                        seatRowA[seatNum-1]=0;
-                        System.out.println("seat cancelled");
-
-                    }else{
-                        System.out.println("Already free");
-                    }
-            }else{
-                System.out.println("enter valid input");
-                cancel_seat();
-            }
-
+            cancel_process();
 
         } else if (row.equals("B")) {
-
-            if(scanner.hasNextInt()){
-                int seatNum = scanner.nextInt();
-                if (seatRowB[seatNum-1]==1){
-                    seatRowB[seatNum-1]=0;
-                    System.out.println("seat cancelled");
-
-                }else{
-                    System.out.println("Already free");
-                    buy_seat();
-                }
-            }else{
-                System.out.println("enter valid input");
-                cancel_seat();
-            }
-
+            cancel_process();
 
         } else if (row.equals("C")) {
-
-            if(scanner.hasNextInt()){
-                int seatNum = scanner.nextInt();
-                if (seatRowC[seatNum-1]==1){
-                    seatRowC[seatNum-1]=0;
-                    System.out.println("seat cancelled");
-
-                }else{
-                    System.out.println("Already free");
-                    buy_seat();
-                }
-            }else{
-                System.out.println("enter valid input");
-                cancel_seat();
-            }
+            cancel_process();
 
         }else if (row.equals("D")){
-            if(scanner.hasNextInt()){
-                int seatNum = scanner.nextInt();
-                if (seatRowD[seatNum-1]==1){
-                    seatRowD[seatNum-1]=0;
-                    System.out.println("seat booked!!");
-
-                }else{
-                    System.out.println("Already free");
-                    buy_seat();
-                }
-            }else{
-                System.out.println("enter valid input");
-                cancel_seat();
-            }
+            cancel_process();
 
         }else {
             System.out.println("Enter correct row");
@@ -440,6 +385,23 @@ public class PlaneManagement {
     }
 }
 
+    public static void cancel_process(){
+        if(scanner.hasNextInt()){
+            int seatNum = scanner.nextInt();
+            if (seatRowA[seatNum-1]==1){
+                seatRowA[seatNum-1]=0;
+                System.out.println("seat cancelled");
+
+            }else{
+                System.out.println("Already free");
+            }
+        }else{
+            System.out.println("enter valid input");
+            cancel_seat();
+        }
+    }
+
+
     public static void save(String x,Ticket t){
     try {
         File myObj = new File(x+".txt");
@@ -468,5 +430,8 @@ public class PlaneManagement {
 
 
 }
+
+
+
 
 }
