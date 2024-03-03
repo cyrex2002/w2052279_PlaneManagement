@@ -62,16 +62,11 @@ public class PlaneManagement {
                 break;
             case 6:
                 search_ticket();
+                break;
             case 0:
                 exit = 1;
-                break;
-            case 7:
-                get_input();
-                break;
-            default:
-                System.out.println("invalid input");
 
-            }
+        }
     }
 
     public static void buy_seat() {
@@ -97,10 +92,10 @@ public class PlaneManagement {
         String row= scanner.next().toUpperCase();
 
         switch (row) {
-            case "A" -> cancel_process(seatRowA);
-            case "B" -> cancel_process(seatRowB);
-            case "C" -> cancel_process(seatRowC);
-            case "D" -> cancel_process(seatRowD);
+            case "A" -> cancel_process(seatRowA,row);
+            case "B" -> cancel_process(seatRowB,row);
+            case "C" -> cancel_process(seatRowC,row);
+            case "D" -> cancel_process(seatRowD,row);
             default -> {
                 System.out.println("Enter correct row");
                 cancel_seat();
@@ -162,6 +157,7 @@ public class PlaneManagement {
         if(flag == 1) {
             System.out.println("There no available seats");
         }
+
     }
 
     public static void show_seating_plan(){
@@ -204,6 +200,7 @@ public class PlaneManagement {
             }
         }
         System.out.println("\n\n");
+
     }
 
     public static void  print_tickets_info(){
@@ -220,7 +217,7 @@ public class PlaneManagement {
         }
 
         System.out.println("Total amount is: "+total_amount);
-
+        showMenu();
     }
 
     public static void search_ticket() {
@@ -229,48 +226,57 @@ public class PlaneManagement {
         System.out.println("Enter row letter");
         String row = scanner.next().toUpperCase();
 
-        if(row.equals("A")||row.equals("D")){
-            System.out.println("Enter seat number");
-            int seat = scanner.nextInt();
-            if(seat<=14 && seat>=1) {
 
-                while (index < tickets.length && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
-                    index++;
-                }
-                if (index == tickets.length) {
-                    System.out.println("This seat is available");
+            if (row.equals("A") || row.equals("D")) {
+                System.out.println("Enter seat number");
+                int seat = scanner.nextInt();
+                try {
+                if (seat <= 14 && seat >= 1) {
+
+                    while (index < tickets.length && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
+                        index++;
+                    }
+                    if (index == tickets.length) {
+                        System.out.println("This seat is available");
+                    } else {
+                        System.out.println(tickets[index].getPerson().getName());
+                    }
                 } else {
-                    System.out.println(tickets[index].getPerson().getName());
+                    System.out.println("Enter seat number between 1-14");
                 }
-            }else
-            {
-                System.out.println("Enter seat number between 1-14");
+                }
+                catch (Exception e) {
+                    System.out.println(e);
+                    System.out.println("No records");
+                }
+
+            } else if (row.equals("C") || row.equals("B")) {
+                try {
+                    System.out.print("Enter seat number: ");
+                    int seat = scanner.nextInt();
+                    if (seat <= 12 && seat >= 1) {
+
+                        while (index < tickets.length && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
+                            index++;
+                        }
+                        if (index == tickets.length) {
+                            System.out.println("This seat is available");
+                        } else {
+                            System.out.println(tickets[index].getPerson().getName());
+                        }
+                    } else {
+                        System.out.print("Enter seat number between 1-12: ");
+                    }
+                }catch (Exception e){
+                    System.out.println(e);
+                    System.out.println("No records");
+                }
+
+            } else {
+                System.out.println("Enter correct row letter");
             }
 
-
-        } else if (row.equals("C")||row.equals("B")) {
-
-            System.out.print("Enter seat number: ");
-            int seat = scanner.nextInt();
-            if(seat<=12 && seat>=1) {
-
-                while (index < tickets.length && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
-                    index++;
-                }
-                if (index == tickets.length) {
-                    System.out.println("This seat is available");
-                } else {
-                    System.out.println(tickets[index].getPerson().getName());
-                }
-            }else
-            {
-                System.out.print("Enter seat number between 1-12: ");
-            }
-
-        }else {
-            System.out.println("Enter correct row letter");
-        }
-
+        showMenu();
 
     }
 
@@ -294,6 +300,7 @@ public class PlaneManagement {
 
         System.out.print("Enter seat number: ");
         int ticket_price;
+        scanner.nextLine();
         if (scanner.hasNextInt()) {
         int seatNum = scanner.nextInt();
 
@@ -310,38 +317,52 @@ public class PlaneManagement {
                     ticket_price = 180;
                 }
 
-
                 Ticket ticket = new Ticket(row, seatNum, ticket_price, person);
                 tickets[ticket_count++] = ticket;
                 save(row+seatNum,ticket);
-
                 System.out.println("seat booked!!");
+                showMenu();
             } else {
                 System.out.println("seat has been sold");
             }
-        }catch (Exception e) {
+
+        }catch (Exception e){
             if (row.equals("A")||row.equals("D")){
-                System.out.print("Enter seat number between 1-14: ");}
+                System.out.print("Enter seat number between 1-14: ");
+            }
             else {
                 System.out.print("Enter seat number below 1-12: ");
             }
         }
-
         } else {
         System.out.println("enter valid input");
         buy_seat();
     }
 }
 
-    public static void cancel_process(int[] seat_row){
+    public static void cancel_process(int[] seat_row,String row){
+        System.out.println("Enter seat number");
+
         if(scanner.hasNextInt()){
             int seatNum = scanner.nextInt();
+
             if (seat_row[seatNum-1]==1){
                 seat_row[seatNum-1]=0;
                 System.out.println("seat cancelled");
 
+                try {
+                    for(int i=0; i<tickets.length; i++){
+                        if (tickets[i].getRow().equals(row) && tickets[i].getSeat()==seatNum){
+                           tickets[i] = null;
+                        }
+                    }
+                }catch (Exception e){
+                    System.out.println();
+                }
+
             }else{
                 System.out.println("Already free");
+                showMenu();
             }
         }else{
             System.out.println("enter valid input");
@@ -377,7 +398,7 @@ public class PlaneManagement {
     }
 
     public static int get_input(){
-        int input=7;
+        int input =0;
         try {
             input = scanner.nextInt();
 
