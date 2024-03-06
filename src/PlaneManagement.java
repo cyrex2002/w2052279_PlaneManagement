@@ -278,7 +278,8 @@ public class PlaneManagement {
                 }
 
             } else {
-                System.out.println("Enter correct row letter");
+                System.err.println("Enter correct row letter");
+                search_ticket();
             }
 
         showMenu();
