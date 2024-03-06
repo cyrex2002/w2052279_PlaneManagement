@@ -16,8 +16,6 @@ public class PlaneManagement {
         }
     }
 
-
-
     static Scanner scanner = new Scanner(System.in);
     static int[] seatRowA = new int[14];
     static int[] seatRowB = new int[12];
@@ -162,14 +160,12 @@ public class PlaneManagement {
 //        if(flag == 1) {
 //            System.out.println("There no available seats");
 //        }
-
+        int rr = 0;
         for(int[] r : all_rows) {
             int n = 1;
-            int rr = 0;
             String[] row = {"A","B","C","D"};
 
             for(int i : r){
-
                 if(i==0){
 
                     System.out.println("Row:"+ row[rr] + " seat number:"+n+" is free");
@@ -182,10 +178,8 @@ public class PlaneManagement {
                     showMenu();
                     return;
                 }
-
-                ++rr;
-
             }
+            rr++;
 
         }
 
