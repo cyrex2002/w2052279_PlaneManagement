@@ -44,4 +44,11 @@ public class Ticket {
     public void setPerson(Person person) {
         this.person = person;
     }
+
+    public void ticket_detail(){
+        System.out.println("Row: "+row);
+        System.out.println("Seat: "+ seat);
+        System.out.println("price: £"+price);
+        person.person_detail();
+    }
 }

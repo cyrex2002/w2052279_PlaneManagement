@@ -1,13 +1,16 @@
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class PlaneManagement {
     public static void main(String[] args) {
         System.out.println("\n\nWelcome to the Plane Management application\n");
-
+        System.out.print("""
+                **********************************
+                *         MENU OPTIONS      *
+                **********************************
+                """);
         while (true){
             showMenu();
             if(exit==1){
@@ -21,10 +24,7 @@ public class PlaneManagement {
     static int[] seatRowB = new int[12];
     static int[] seatRowC = new int[12];
     static int[] seatRowD = new int[14];
-
     static int[][] all_rows = {seatRowA,seatRowB,seatRowC,seatRowD};
-
-
     static int exit = 0;
     static Person person;
     static Ticket[] tickets =new Ticket[52];
@@ -32,11 +32,8 @@ public class PlaneManagement {
 
     public static void showMenu() {
         System.out.println
-                (""" 
-                **********************************
-                *         MENU OPTIONS      *
-                **********************************
-                                
+                ("""
+                
                     1) Buy a seat
                     2) Cancel a seat
                     3) Find first available seat
@@ -44,6 +41,7 @@ public class PlaneManagement {
                     5) Print tickets information and total sales
                     6) Search Ticket
                     0) Quit
+                --------------------------------------------------
                 """);
 
         int input = get_input();
@@ -74,7 +72,7 @@ public class PlaneManagement {
 
     public static void buy_seat() {
 
-        System.out.print("Enter row letter: ");
+        System.out.print("Enter row letter(A/B/C/D): ");
         String row = scanner.next().toUpperCase();
 
         switch (row) {
@@ -104,100 +102,44 @@ public class PlaneManagement {
                 cancel_seat();
             }
         }
-
-
     }
 
     public static void find_first_available(){
-//        int seat_num = 0;
-//        int flag = 1;
-
-//        for(int x : seatRowA){
-//            seat_num=seat_num+1;
-//            if (x==0){
-//                flag =0;
-//                System.out.println("Row A seat number "+seat_num+" is available");
-//                break;
-//            }
-//        }
-//
-//        seat_num=0;
-//
-//        if (flag==1) {
-//            for (int x : seatRowB) {
-//                seat_num = seat_num + 1;
-//                if (x == 0) {
-//                    flag = 2;
-//                    System.out.println("Row B seat number " + seat_num + " is available");
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if(flag==1) {
-//            seat_num = 0;
-//            for (int x : seatRowC) {
-//                seat_num = seat_num + 1;
-//                if (x == 0) {
-//                    flag = 0;
-//                    System.out.println("Row C seat number " + seat_num + " is available");
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if(flag==1) {
-//            seat_num = 0;
-//            for (int x : seatRowD) {
-//                seat_num = seat_num + 1;
-//                if (x == 0) {
-//                    System.out.println("Row D seat number " + seat_num + " is available");
-//                    break;
-//                }
-//            }
-//        }
-//
-//        if(flag == 1) {
-//            System.out.println("There no available seats");
-//        }
-        int rr = 0;
-        for(int[] r : all_rows) {
-            int n = 1;
-            String[] row = {"A","B","C","D"};
-
-            for(int i : r){
+        int rowName = 0;
+        for(int[] row : all_rows) {
+            int seatNum = 1;
+            String[] rowNames = {"A","B","C","D"};
+            for(int i : row){
                 if(i==0){
-
-                    System.out.println("Row:"+ row[rr] + " seat number:"+n+" is free");
+                    System.out.println("Row:"+ rowNames[rowName] + " seat number:"+seatNum+" is free");
                     showMenu();
                     return;
                 }
-                n++;
-                if(r==seatRowD && n==14){
+                seatNum++;
+                if(row==seatRowD && seatNum==14){
                     System.out.println("No seats are free");
                     showMenu();
                     return;
                 }
             }
-            rr++;
-
+            rowName++;
         }
-
     }
 
     public static void show_seating_plan(){
-
         int index=0;
         for(int[] r : all_rows){
 
             for(int i : r){
                 if(i==0){
                     System.out.print("O");
-                    index++;
                 }
                 else{
                     System.out.print("X");
-                    index++;
+                }
+                index++;
+                if(index==26){
+                    System.out.print("\n");
                 }
                 if (index == 14 || index== 26|| index == 38||index == 52){
                     System.out.println();
@@ -205,11 +147,9 @@ public class PlaneManagement {
             }
         }
         showMenu();
-
     }
 
     public static void  print_tickets_info(){
-
         double total_amount=0;
 
         try {
@@ -220,7 +160,6 @@ public class PlaneManagement {
         }catch (Exception e){
             System.out.println();
         }
-
         System.out.println("Total amount is: "+total_amount);
         showMenu();
     }
@@ -242,16 +181,16 @@ public class PlaneManagement {
                         index++;
                     }
                     if (index == tickets.length) {
-                        System.out.println("This seat is available");
+                        System.out.println("This seat is available for booking");
                     } else {
                         System.out.println(tickets[index].getPerson().getName());
+                        tickets[index].ticket_detail();
                     }
                 } else {
                     System.out.println("Enter seat number between 1-14");
                 }
                 }
                 catch (Exception e) {
-                    System.out.println(e);
                     System.out.println("No records");
                 }
 
@@ -267,25 +206,21 @@ public class PlaneManagement {
                         if (index == tickets.length) {
                             System.out.println("This seat is available");
                         } else {
-                            System.out.println(tickets[index].getPerson().getName());
+                            tickets[index].ticket_detail();
                         }
                     } else {
                         System.out.print("Enter seat number between 1-12: ");
                     }
                 }catch (Exception e){
-                    System.out.println(e);
                     System.out.println("No records");
                 }
 
             } else {
-                System.err.println("Enter correct row letter");
+                System.out.println("Enter correct row letter");
                 search_ticket();
             }
 
         showMenu();
-
-
-
     }
 
     public static Person get_person_details() {
@@ -310,9 +245,8 @@ public class PlaneManagement {
         int ticket_price;
         scanner.nextLine();
         if (scanner.hasNextInt()) {
-        int seatNum = scanner.nextInt();
-
         try {
+            int seatNum = scanner.nextInt();
             if (seat_row[seatNum - 1] == 0 && seatNum <= 14) {
                 seat_row[seatNum - 1] = 1;
                 person = get_person_details();
@@ -393,8 +327,6 @@ public class PlaneManagement {
         e.printStackTrace();
     }
 
-
-
     try {
         FileWriter myWriter = new FileWriter(x+".txt");
         myWriter.write("Row:"+t.getRow()+" Seat:"+t.getSeat()+" Price:"+t.getPrice()+" Person name:"+t.getPerson().getName()+" Surname:"+t.getPerson().getSurname()+" Email:"+t.getPerson().getEmail());
@@ -421,8 +353,6 @@ public class PlaneManagement {
             System.err.println("invalid input please enter input between 1-6 or 0");
             showMenu();
         }
-
         return input;
     }
-
 }
