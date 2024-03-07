@@ -167,7 +167,7 @@ public class PlaneManagement {
 
     public static void search_ticket() {
         scanner.nextLine();
-        int index = 1;
+        int index = 0;
         System.out.println("Enter row(A/B/C/D):");
         String row = scanner.next().toUpperCase();
 
@@ -185,10 +185,10 @@ public class PlaneManagement {
                 try {
                 if (seat <= 14 && seat >= 1) {
 
-                    while (index < 53 && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
-                        index++;
+                    while (index < 51 && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
+                        ++index;
                     }
-                    if (index == tickets.length) {
+                    if (index == 51) {
                         System.out.println("This seat is available for booking");
                     } else {
                         tickets[index].ticket_detail();
@@ -217,10 +217,10 @@ public class PlaneManagement {
             try {
                     if (seat <= 12 && seat >= 1) {
 
-                        while (index < 53 && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
-                            index++;
+                        while (index < 51 && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
+                            ++index;
                         }
-                        if (index == tickets.length) {
+                        if (index == 51) {
                             System.out.println("This seat is available");
                         } else {
                             tickets[index].ticket_detail();
