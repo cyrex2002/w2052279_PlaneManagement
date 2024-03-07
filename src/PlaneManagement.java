@@ -171,10 +171,17 @@ public class PlaneManagement {
         System.out.println("Enter row letter");
         String row = scanner.next().toUpperCase();
 
-
-            if (row.equals("A") || row.equals("D")) {
+        if (row.equals("A") || row.equals("D")) {
+                int seat = 0 ;
                 System.out.println("Enter seat number");
-                int seat = scanner.nextInt();
+                try {
+                     seat = scanner.nextInt();
+                }catch (Exception e){
+                    System.out.println("Enter valid number");
+                    search_ticket();
+                    return;
+                }
+
                 try {
                 if (seat <= 14 && seat >= 1) {
 
@@ -195,7 +202,7 @@ public class PlaneManagement {
                     System.out.println("No records");
                 }
 
-            } else if (row.equals("C") || row.equals("B")) {
+        } else if (row.equals("C") || row.equals("B")) {
                 try {
                     System.out.print("Enter seat number: ");
                     int seat = scanner.nextInt();
@@ -216,11 +223,11 @@ public class PlaneManagement {
                     System.out.println("No records");
                 }
 
-            } else {
-                System.out.println("Enter correct row letter");
-                search_ticket();
-            }
+        } else {
+                //System.out.println("Enter correct row letter");
+            search_ticket();
 
+        }
         showMenu();
     }
 
@@ -286,6 +293,7 @@ public class PlaneManagement {
 }
 
     public static void cancel_process(int[] seat_row,String row){
+        scanner.nextLine();
         System.out.println("Enter seat number");
 
         if(scanner.hasNextInt()){
@@ -311,6 +319,7 @@ public class PlaneManagement {
             }
         }else{
             System.out.println("enter valid input");
+            scanner.nextLine();
             cancel_seat();
         }
     }
