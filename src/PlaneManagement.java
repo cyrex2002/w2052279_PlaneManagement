@@ -34,6 +34,7 @@ public class PlaneManagement {
         System.out.println
                 ("""
                 
+                
                     1) Buy a seat
                     2) Cancel a seat
                     3) Find first available seat
@@ -137,13 +138,13 @@ public class PlaneManagement {
                 else{
                     System.out.print("X");
                 }
-                index++;
                 if(index==26){
                     System.out.print("\n");
                 }
                 if (index == 14 || index== 26|| index == 38||index == 52){
                     System.out.println();
                 }
+                index++;
             }
         }
         showMenu();
