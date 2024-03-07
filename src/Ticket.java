@@ -46,9 +46,53 @@ public class Ticket {
     }
 
     public void ticket_detail(){
-        System.out.println("Row: "+row);
-        System.out.println("Seat: "+ seat);
-        System.out.println("price: £"+price);
-        person.person_detail();
+        String row = " Row  : "+getRow();
+        String seat=" Seat : "+ getSeat();
+        String price= " price: £"+getPrice();
+        String name = "Name: "+person.name;
+        String surname ="Surname: "+person.getSurname();
+        String email = "Email: "+person.getEmail();
+        int longestString = Math.max(row.length(), Math.max(seat.length(), Math.max(price.length(),Math.max(name.length(),Math.max(surname.length(),email.length())))));
+        int width = longestString + 4;
+
+        printLine(width);
+        printText(row, width);
+        printText(seat, width);
+        printText(price, width);
+        printText(name,width);
+        printText(email,width);
+        printLine(width);
+
+
+    }
+
+    private void printLine(int width) {
+        System.out.print("+"); // Corner
+        for (int i = 0; i < width - 2; i++) {
+            System.out.print("-");
+        }
+        System.out.println("+"); // Corner
+    }
+    private void printText(String text, int width) {
+        System.out.print("|");
+
+        int padding = width - 2 - text.length();
+        int paddingBefore = padding / 2;
+        int paddingAfter = padding - paddingBefore;
+
+
+        for (int i = 0; i < paddingBefore; i++) {
+            System.out.print(" ");
+        }
+
+
+        System.out.print(text);
+
+
+        for (int i = 0; i < paddingAfter; i++) {
+            System.out.print(" ");
+        }
+
+        System.out.println("|");
     }
 }
