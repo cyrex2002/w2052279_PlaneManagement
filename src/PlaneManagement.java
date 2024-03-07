@@ -166,14 +166,14 @@ public class PlaneManagement {
     }
 
     public static void search_ticket() {
+        scanner.nextLine();
         int index = 0;
-
-        System.out.println("Enter row letter");
+        System.out.println("Enter row(A/B/C/D):");
         String row = scanner.next().toUpperCase();
 
         if (row.equals("A") || row.equals("D")) {
-                int seat = 0 ;
-                System.out.println("Enter seat number");
+                int seat ;
+                System.out.println("Enter seat number(1-14):");
                 try {
                      seat = scanner.nextInt();
                 }catch (Exception e){
@@ -196,6 +196,7 @@ public class PlaneManagement {
                     }
                 } else {
                     System.out.println("Enter seat number between 1-14");
+                    search_ticket();
                 }
                 }
                 catch (Exception e) {
@@ -203,9 +204,17 @@ public class PlaneManagement {
                 }
 
         } else if (row.equals("C") || row.equals("B")) {
-                try {
-                    System.out.print("Enter seat number: ");
-                    int seat = scanner.nextInt();
+
+            int seat ;
+            System.out.println("Enter seat number(1-12):");
+            try {
+                seat = scanner.nextInt();
+            }catch (Exception e){
+                System.out.println("Enter valid number");
+                search_ticket();
+                return;
+            }
+            try {
                     if (seat <= 12 && seat >= 1) {
 
                         while (index < tickets.length && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
@@ -218,13 +227,14 @@ public class PlaneManagement {
                         }
                     } else {
                         System.out.print("Enter seat number between 1-12: ");
+                        search_ticket();
                     }
-                }catch (Exception e){
-                    System.out.println("No records");
-                }
+            }catch (Exception e){
+                System.out.println("No records");
+            }
 
         } else {
-                //System.out.println("Enter correct row letter");
+            System.out.println("Enter correct row letter(A/B/C/D)");
             search_ticket();
 
         }
