@@ -80,7 +80,7 @@ public class PlaneManagement {
             case "A" -> buy_process("A", seatRowA);
             case "B" -> buy_process("B", seatRowB);
             case "C" -> buy_process("C", seatRowC);
-            case "D" -> buy_process("D", seatRowC);
+            case "D" -> buy_process("D", seatRowD);
             default -> {
                 System.out.println("Enter correct row");
                 buy_seat();
