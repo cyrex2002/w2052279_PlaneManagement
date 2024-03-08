@@ -11,12 +11,9 @@ public class PlaneManagement {
                 *         MENU OPTIONS      *
                 **********************************
                 """);
-        while (true){
+        do {
             showMenu();
-            if(exit==1){
-                break;
-            }
-        }
+        } while (exit != 1);
     }
 
     static Scanner scanner = new Scanner(System.in);
@@ -205,7 +202,6 @@ public class PlaneManagement {
                 }
                 }
                 catch (Exception e) {
-                    System.out.println(e);
                     System.out.println("No records1");
                 }
 
