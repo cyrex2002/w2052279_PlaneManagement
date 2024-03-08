@@ -2,9 +2,9 @@ public class Person {
 
 
 
-    String name;
-    String surname;
-    String email;
+   private String name;
+   private String surname;
+   private String email;
 
     public Person(String name, String surname, String email) {
         this.name = name;

@@ -185,9 +185,14 @@ public class PlaneManagement {
                 try {
                 if (seat <= 14 && seat >= 1) {
 
-                    while (index < 51 && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
-                        ++index;
+                    while (index < 51 ) {
+                        if(tickets[index].getRow()==null || !tickets[index].getRow().equals(row)){
+                            index++;
+                        }else{
+                            break;
+                        }
                     }
+
                     if (index == 51) {
                         System.out.println("This seat is available for booking");
                     } else {
@@ -200,12 +205,13 @@ public class PlaneManagement {
                 }
                 }
                 catch (Exception e) {
-                    System.out.println("No records");
+                    System.out.println(e);
+                    System.out.println("No records1");
                 }
 
         } else if (row.equals("C") || row.equals("B")) {
 
-            int seat ;
+            int seat;
             System.out.println("Enter seat number(1-12):");
             try {
                 seat = scanner.nextInt();
@@ -214,23 +220,30 @@ public class PlaneManagement {
                 search_ticket();
                 return;
             }
+
             try {
                     if (seat <= 12 && seat >= 1) {
 
-                        while (index < 51 && !tickets[index].getRow().equals(row) && tickets[index].getSeat() != seat) {
-                            ++index;
+                        while (index < 51 ) {
+                            if(tickets[index].getRow()==null || !tickets[index].getRow().equals(row)){
+                                index++;
+                            }else{
+                                break;
+                            }
                         }
+
                         if (index == 51) {
-                            System.out.println("This seat is available");
+                            System.out.println("This seat is available for booking");
                         } else {
                             tickets[index].ticket_detail();
                         }
+
                     } else {
                         System.out.print("Enter seat number between 1-12: ");
                         search_ticket();
                     }
             }catch (Exception e){
-                System.out.println("No records");
+                System.out.println("No records2");
             }
 
         } else {

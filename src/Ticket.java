@@ -3,9 +3,9 @@ public class Ticket {
 
 
 
-    int seat;
-    double price;
-    Person person;
+    private int seat;
+    private double price;
+    private Person person;
 
     public Ticket(String row, int seat, double price, Person person) {
         this.row = row;
@@ -49,7 +49,7 @@ public class Ticket {
         String row = " Row  : "+getRow();
         String seat=" Seat : "+ getSeat();
         String price= " price: £"+getPrice();
-        String name = "Name: "+person.name;
+        String name = "Name: "+person.getName();
         String surname ="Surname: "+person.getSurname();
         String email = "Email: "+person.getEmail();
         int longestString = Math.max(row.length(), Math.max(seat.length(), Math.max(price.length(),Math.max(name.length(),Math.max(surname.length(),email.length())))));
