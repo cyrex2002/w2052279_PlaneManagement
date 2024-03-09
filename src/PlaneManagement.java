@@ -251,14 +251,15 @@ public class PlaneManagement {
     }
 
     public static Person get_person_details() {
-        System.out.print("Enter your name: ");
-        String name = scanner.next();
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter your name: ");
+        String name = scanner.nextLine();
 
-        System.out.print("Enter your surname: ");
-        String surname = scanner.next();
+        System.out.println("Enter your surname: ");
+        String surname = scanner.nextLine();
 
-        System.out.print("Enter your Email: ");
-        String email = scanner.next();
+        System.out.println("Enter your Email: ");
+        String email = scanner.nextLine();
 
         person = new Person(name,surname,email);
 
