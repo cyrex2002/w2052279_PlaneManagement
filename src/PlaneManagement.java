@@ -12,7 +12,7 @@ public class PlaneManagement {
                 **********************************
                 """);
         do {
-            showMenu();
+            show_menu();
         } while (exit != 1);
     }
 
@@ -21,13 +21,13 @@ public class PlaneManagement {
     static int[] seatRowB = new int[12];
     static int[] seatRowC = new int[12];
     static int[] seatRowD = new int[14];
-    static int[][] all_rows = {seatRowA,seatRowB,seatRowC,seatRowD};
+    static int[][] allRows = {seatRowA,seatRowB,seatRowC,seatRowD};
     static int exit = 0;
     static Person person;
     static Ticket[] tickets =new Ticket[52];
-    static int ticket_count = 0;
+    static int ticketCount = 0;
 
-    public static void showMenu() {
+    public static void show_menu() {
         System.out.println
                 ("""
                 
@@ -104,19 +104,19 @@ public class PlaneManagement {
 
     public static void find_first_available(){
         int rowName = 0;
-        for(int[] row : all_rows) {
+        for(int[] row : allRows) {
             int seatNum = 1;
             String[] rowNames = {"A","B","C","D"};
             for(int i : row){
                 if(i==0){
                     System.out.println("Row:"+ rowNames[rowName] + " seat number:"+seatNum+" is free");
-                    showMenu();
+                    show_menu();
                     return;
                 }
                 seatNum++;
                 if(row==seatRowD && seatNum==14){
                     System.out.println("No seats are free");
-                    showMenu();
+                    show_menu();
                     return;
                 }
             }
@@ -126,7 +126,7 @@ public class PlaneManagement {
 
     public static void show_seating_plan(){
         int sIndex=0;
-        for(int[] r : all_rows){
+        for(int[] r : allRows){
 
             for(int i : r){
                 if(i==0){
@@ -144,7 +144,7 @@ public class PlaneManagement {
                 sIndex++;
             }
         }
-        showMenu();
+        show_menu();
     }
 
     public static void  print_tickets_info(){
@@ -159,7 +159,7 @@ public class PlaneManagement {
             System.out.println();
         }
         System.out.println("Total amount is: "+total_amount);
-        showMenu();
+        show_menu();
     }
 
     public static void search_ticket() {
@@ -247,7 +247,7 @@ public class PlaneManagement {
             search_ticket();
 
         }
-        showMenu();
+        show_menu();
     }
 
     public static Person get_person_details() {
@@ -287,13 +287,13 @@ public class PlaneManagement {
                 }
 
                 Ticket ticket = new Ticket(row, seatNum, ticket_price, person);
-                tickets[ticket_count++] = ticket;
+                tickets[ticketCount++] = ticket;
                 save(row+seatNum,ticket);
                 System.out.println("seat booked!!");
-                showMenu();
+                show_menu();
             } else {
                 System.out.println("seat has been sold");
-                showMenu();
+                show_menu();
             }
 
         }catch (Exception e){
@@ -334,7 +334,7 @@ public class PlaneManagement {
 
             }else{
                 System.out.println("Already free");
-                showMenu();
+                show_menu();
             }
         }else{
             System.out.println("enter valid input");
@@ -375,12 +375,12 @@ public class PlaneManagement {
 
             if (input > 6 || input < 0) {
                 System.err.println("Please enter option between 1-6 or 0");
-                showMenu();
+                show_menu();
             }
         }catch (Exception e)
         {   scanner.nextLine();
             System.err.println("invalid input please enter input between 1-6 or 0");
-            showMenu();
+            show_menu();
         }
         return input;
     }
