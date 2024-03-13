@@ -169,44 +169,29 @@ public class PlaneManagement {
         String row = scanner.next().toUpperCase();
 
         if (row.equals("A") || row.equals("D")) {
-                int seat ;
-                System.out.println("Enter seat number(1-14):");
-                try {
-                     seat = scanner.nextInt();
-                }catch (Exception e){
-                    System.out.println("Enter valid number");
-                    search_ticket();
-                    return;
-                }
+            int seat ;
+            System.out.println("Enter seat number(1-14):");
+            try {
+                 seat = scanner.nextInt();
+            }catch (Exception e){
+                System.out.println("Enter valid number");
+                search_ticket();
+                return;
+            }
 
-                try {
+            try {
                 if (seat <= 14 && seat >= 1) {
-
-                    while (index < 51 ) {
-                        if(tickets[index].getRow()==null || !tickets[index].getRow().equals(row)){
-                            index++;
-                        }else{
-                            break;
-                        }
-                    }
-
-                    if (index == 51) {
-                        System.out.println("This seat is available for booking");
-                    } else {
-                        tickets[index].ticket_detail();
-                    }
-
+                    search_process(index, row, seat);
                 } else {
                     System.out.println("Enter seat number between 1-14");
                     search_ticket();
                 }
-                }
-                catch (Exception e) {
-                    System.out.println("No records1");
-                }
+            }
+            catch (Exception e) {
+                System.out.println("This seat is available for booking");
+            }
 
         } else if (row.equals("C") || row.equals("B")) {
-
             int seat;
             System.out.println("Enter seat number(1-12):");
             try {
@@ -218,36 +203,37 @@ public class PlaneManagement {
             }
 
             try {
-                    if (seat <= 12 && seat >= 1) {
-
-                        while (index < 51 ) {
-                            if(tickets[index].getRow()==null || !tickets[index].getRow().equals(row)){
-                                index++;
-                            }else{
-                                break;
-                            }
-                        }
-
-                        if (index == 51) {
-                            System.out.println("This seat is available for booking");
-                        } else {
-                            tickets[index].ticket_detail();
-                        }
-
-                    } else {
-                        System.out.print("Enter seat number between 1-12: ");
-                        search_ticket();
-                    }
+                if (seat <= 12 && seat >= 1) {
+                    search_process(index, row, seat);
+                } else {
+                    System.out.print("Enter seat number between 1-12: ");
+                    search_ticket();
+                }
             }catch (Exception e){
-                System.out.println("No records2");
+                System.out.println("This seat is available for booking");
             }
 
         } else {
             System.out.println("Enter correct row letter(A/B/C/D)");
             search_ticket();
-
         }
         show_menu();
+    }
+
+    public static void search_process(int index, String row, int seat) {
+        while (index < 51 ) {
+            if(tickets[index].getRow()==null || !tickets[index].getRow().equals(row) || tickets[index].getSeat() != seat){
+                index++;
+            }else{
+                break;
+            }
+        }
+
+        if (index == 51) {
+            System.out.println("This seat is available for booking");
+        } else {
+            tickets[index].ticket_detail();
+        }
     }
 
     public static Person get_person_details() {
