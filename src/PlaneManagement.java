@@ -64,7 +64,6 @@ public class PlaneManagement {
                 break;
             case 0:
                 exit = 1;
-
         }
     }
 
@@ -221,7 +220,7 @@ public class PlaneManagement {
     }
 
     public static void search_process(int index, String row, int seat) {
-        while (index < 51 ) {
+        while (index < 52 ) {
             if(tickets[index].getRow()==null || !tickets[index].getRow().equals(row) || tickets[index].getSeat() != seat){
                 index++;
             }else{
@@ -229,9 +228,10 @@ public class PlaneManagement {
             }
         }
 
-        if (index == 51) {
+        if (index == 52) {
             System.out.println("This seat is available for booking");
         } else {
+            System.out.println(index);
             tickets[index].ticket_detail();
         }
     }
