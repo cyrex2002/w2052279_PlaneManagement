@@ -86,7 +86,7 @@ public class PlaneManagement {
 
     public static void cancel_seat(){
 
-        System.out.println("Enter row letter");
+        System.out.println("Enter row letter(A/B/C/D)");
         String row= scanner.next().toUpperCase();
 
         switch (row) {
@@ -172,6 +172,7 @@ public class PlaneManagement {
             System.out.println("Enter seat number(1-14):");
             try {
                  seat = scanner.nextInt();
+                 scanner.nextLine();
             }catch (Exception e){
                 System.out.println("Enter valid number");
                 search_ticket();
@@ -195,6 +196,7 @@ public class PlaneManagement {
             System.out.println("Enter seat number(1-12):");
             try {
                 seat = scanner.nextInt();
+                scanner.nextLine();
             }catch (Exception e){
                 System.out.println("Enter valid number");
                 search_ticket();
@@ -258,38 +260,41 @@ public class PlaneManagement {
         System.out.print("Enter seat number: ");
         int ticket_price;
         scanner.nextLine();
-        if (scanner.hasNextInt()) {
-        try {
-            int seatNum = scanner.nextInt();
-            if (seat_row[seatNum - 1] == 0 && seatNum <= 14) {
-                seat_row[seatNum - 1] = 1;
-                person = get_person_details();
 
-                if(seatNum<=5){
-                    ticket_price = 200;
-                } else if (seatNum<10) {
-                    ticket_price= 150;
-                }else {
-                    ticket_price = 180;
+        if (scanner.hasNextInt()) {
+            try {
+                int seatNum = scanner.nextInt();
+                scanner.nextLine();
+                if (seat_row[seatNum - 1] == 0 && seatNum <= 14) {
+                    seat_row[seatNum - 1] = 1;
+                    person = get_person_details();
+
+                    if(seatNum<=5){
+                        ticket_price = 200;
+                    } else if (seatNum<10) {
+                        ticket_price= 150;
+                    }else {
+                        ticket_price = 180;
+                    }
+
+                    Ticket ticket = new Ticket(row, seatNum, ticket_price, person);
+                    tickets[ticketCount++] = ticket;
+                    save(row+seatNum,ticket);
+                    System.out.println("seat booked!!");
+                    show_menu();
+
+                } else {
+                    System.out.println("seat has been sold");
+                    show_menu();
                 }
 
-                Ticket ticket = new Ticket(row, seatNum, ticket_price, person);
-                tickets[ticketCount++] = ticket;
-                save(row+seatNum,ticket);
-                System.out.println("seat booked!!");
-                show_menu();
-            } else {
-                System.out.println("seat has been sold");
-                show_menu();
-            }
-
-        }catch (Exception e){
-            if (row.equals("A")||row.equals("D")){
-                System.out.print("Enter seat number between 1-14: ");
-            }
-            else {
-                System.out.print("Enter seat number below 1-12: ");
-            }
+            }catch (Exception e){
+                if (row.equals("A")||row.equals("D")){
+                    System.out.print("Enter seat number between 1-14: ");
+                }
+                else {
+                    System.out.print("Enter seat number below 1-12: ");
+                }
         }
         } else {
             scanner.nextLine();
@@ -304,6 +309,7 @@ public class PlaneManagement {
 
         if(scanner.hasNextInt()){
             int seatNum = scanner.nextInt();
+            scanner.nextLine();
 
             if (seat_row[seatNum-1]==1){
                 seat_row[seatNum-1]=0;
@@ -332,33 +338,40 @@ public class PlaneManagement {
 
     public static void save(String x,Ticket t){
     try {
-        File myObj = new File(x+".txt");
-        if (myObj.createNewFile()) {
-            System.out.println("File created: " + myObj.getName());
+        File file = new File(x+".txt");
+        System.out.println("--------------------------------");
+        if (file.createNewFile()) {
+            System.out.println("File created: " + file.getName());
         } else {
             System.out.println("File already exists.");
         }
     } catch (IOException e) {
         System.out.println("An error occurred.");
-        e.printStackTrace();
+
     }
 
     try {
         FileWriter myWriter = new FileWriter(x+".txt");
-        myWriter.write("Row:"+t.getRow()+" Seat:"+t.getSeat()+" Price:"+t.getPrice()+" Person name:"+t.getPerson().getName()+" Surname:"+t.getPerson().getSurname()+" Email:"+t.getPerson().getEmail());
+        myWriter.write("Row:" +t.getRow()+"\n"+
+                            "Seat:"+t.getSeat()+"\n"+
+                            "Price:"+t.getPrice()+"\n"+
+                            "Person name:"+t.getPerson().getName()+"\n"+
+                            "Surname:"+t.getPerson().getSurname()+"\n"+
+                            "Email:"+t.getPerson().getEmail());
         myWriter.close();
         System.out.println("Successfully wrote to the file.");
     } catch (IOException e) {
         System.out.println("An error occurred.");
-        e.printStackTrace();
-    }
 
+    }
+        System.out.println("--------------------------------");
     }
 
     public static int get_input(){
         int input =0;
         try {
             input = scanner.nextInt();
+            scanner.nextLine();
 
             if (input > 6 || input < 0) {
                 System.err.println("Please enter option between 1-6 or 0");
@@ -371,4 +384,6 @@ public class PlaneManagement {
         }
         return input;
     }
+
+
 }
