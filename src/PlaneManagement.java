@@ -129,10 +129,10 @@ public class PlaneManagement {
 
             for(int i : r){
                 if(i==0){
-                    System.out.print("O");
+                    System.out.print("O ");
                 }
                 else{
-                    System.out.print("X");
+                    System.out.print("X ");
                 }
                 if(sIndex==25){
                     System.out.println();
@@ -162,7 +162,6 @@ public class PlaneManagement {
     }
 
     public static void search_ticket() {
-        scanner.nextLine();
         int index = 0;
         System.out.println("Enter row(A/B/C/D):");
         String row = scanner.next().toUpperCase();
@@ -233,7 +232,6 @@ public class PlaneManagement {
         if (index == 52) {
             System.out.println("This seat is available for booking");
         } else {
-            System.out.println(index);
             tickets[index].ticket_detail();
         }
     }

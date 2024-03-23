@@ -1,8 +1,5 @@
 public class Ticket {
-    String row;
-
-
-
+    private String row;
     private int seat;
     private double price;
     private Person person;
@@ -46,9 +43,9 @@ public class Ticket {
     }
 
     public void ticket_detail(){
-        String row = " Row  : "+getRow();
-        String seat=" Seat : "+ getSeat();
-        String price= " price: £"+getPrice();
+        String row = " Row  : "+ this.row;
+        String seat=" Seat : "+ this.seat;
+        String price= " price: £"+this.price;
         String name = "Name: "+person.getName();
         String surname ="Surname: "+person.getSurname();
         String email = "Email: "+person.getEmail();
@@ -60,6 +57,7 @@ public class Ticket {
         printText(seat, width);
         printText(price, width);
         printText(name,width);
+        printText(surname,width);
         printText(email,width);
         printLine(width);
 
