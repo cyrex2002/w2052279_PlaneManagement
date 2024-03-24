@@ -122,6 +122,7 @@ public class PlaneManagement {
 
     public static void show_seating_plan(){
         int sIndex=0;
+        System.out.println("\n\n");
         for(int[] r : allRows){
 
             for(int i : r){
@@ -139,7 +140,9 @@ public class PlaneManagement {
                 }
                 sIndex++;
             }
+
         }
+        System.out.println("\n\n");
         show_menu();
     }
 
@@ -282,7 +285,7 @@ public class PlaneManagement {
                     show_menu();
 
                 } else {
-                    System.out.println("seat has been sold");
+                    System.out.println("Seat has been sold");
                     show_menu();
                 }
 
@@ -324,7 +327,7 @@ public class PlaneManagement {
                 }
 
             }else{
-                System.out.println("Already free");
+                System.out.println("The seat is already free to book!");
                 show_menu();
             }
         }else{
@@ -338,7 +341,7 @@ public class PlaneManagement {
         System.out.println("--------------------------------");
 
         try {
-            FileWriter myFile = new FileWriter("C:\\Users\\USER\\IdeaProjects\\w2052279_PlaneManagement\\Tickets\\"+x+".txt");
+            FileWriter myFile = new FileWriter(x+".txt");
             BufferedWriter writer = new BufferedWriter(myFile);
             writer.write("Row:" +t.getRow()+"\n"+
                                 "Seat:"+t.getSeat()+"\n"+
