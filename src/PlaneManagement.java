@@ -1,3 +1,4 @@
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,15 +32,14 @@ public class PlaneManagement {
         System.out.println
                 ("""
                 
-                
-                    1) Buy a seat
-                    2) Cancel a seat
-                    3) Find first available seat
-                    4) Show seating plan
-                    5) Print tickets information and total sales
-                    6) Search Ticket
-                    0) Quit
-                --------------------------------------------------
+                1) Buy a seat
+                2) Cancel a seat
+                3) Find first available seat
+                4) Show seating plan
+                5) Print tickets information and total sales
+                6) Search Ticket
+                0) Quit
+                **********************************
                 """);
 
         int input = get_input();
@@ -150,11 +150,15 @@ public class PlaneManagement {
         double total_amount=0;
 
         try {
+           // System.out.print("Booked Tickets: ");
             for (Ticket t : tickets) {
-                System.out.print(t.getRow() + t.getSeat()+", ");
+               // System.out.print("|"+t.getRow() + t.getSeat());
+               t.ticket_detail();
                 total_amount = total_amount+t.getPrice();
+
             }
         }catch (Exception e){
+           // System.out.print("|");
             System.out.println();
         }
         System.out.println("Total amount is: "+total_amount);
@@ -278,7 +282,6 @@ public class PlaneManagement {
                     Ticket ticket = new Ticket(row, seatNum, ticket_price, person);
                     tickets[ticketCount++] = ticket;
                     save(row+seatNum,ticket);
-                    System.out.println("seat booked!!");
                     show_menu();
 
                 } else {
@@ -335,31 +338,21 @@ public class PlaneManagement {
     }
 
     public static void save(String x,Ticket t){
-    try {
-        File file = new File(x+".txt");
         System.out.println("--------------------------------");
-        if (file.createNewFile()) {
-            System.out.println("File created: " + file.getName());
-        } else {
-            System.out.println("File already exists.");
-        }
-    } catch (IOException e) {
-        System.out.println("An error occurred.");
 
-    }
-
-    try {
-        FileWriter myWriter = new FileWriter(x+".txt");
-        myWriter.write("Row:" +t.getRow()+"\n"+
-                            "Seat:"+t.getSeat()+"\n"+
-                            "Price:"+t.getPrice()+"\n"+
-                            "Person name:"+t.getPerson().getName()+"\n"+
-                            "Surname:"+t.getPerson().getSurname()+"\n"+
-                            "Email:"+t.getPerson().getEmail());
-        myWriter.close();
-        System.out.println("Successfully wrote to the file.");
-    } catch (IOException e) {
-        System.out.println("An error occurred.");
+        try {
+            FileWriter myFile = new FileWriter("C:\\Users\\USER\\IdeaProjects\\w2052279_PlaneManagement\\Tickets\\"+x+".txt");
+            BufferedWriter writer = new BufferedWriter(myFile);
+            writer.write("Row:" +t.getRow()+"\n"+
+                                "Seat:"+t.getSeat()+"\n"+
+                                "Price:"+t.getPrice()+"\n"+
+                                "Person name:"+t.getPerson().getName()+"\n"+
+                                "Surname:"+t.getPerson().getSurname()+"\n"+
+                                "Email:"+t.getPerson().getEmail());
+            writer.close();
+            System.out.println("Seat "+x+" booked successfully !");
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
 
     }
         System.out.println("--------------------------------");
