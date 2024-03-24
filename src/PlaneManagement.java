@@ -1,5 +1,4 @@
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Scanner;
@@ -7,11 +6,7 @@ import java.util.Scanner;
 public class PlaneManagement {
     public static void main(String[] args) {
         System.out.println("\n\nWelcome to the Plane Management application\n");
-        System.out.print("""
-                **********************************
-                *         MENU OPTIONS      *
-                **********************************
-                """);
+
         do {
             show_menu();
         } while (exit != 1);
@@ -31,7 +26,9 @@ public class PlaneManagement {
     public static void show_menu() {
         System.out.println
                 ("""
-                
+                ********************************************
+                *               MENU OPTIONS               *
+                ********************************************
                 1) Buy a seat
                 2) Cancel a seat
                 3) Find first available seat
@@ -39,7 +36,7 @@ public class PlaneManagement {
                 5) Print tickets information and total sales
                 6) Search Ticket
                 0) Quit
-                **********************************
+                ********************************************
                 """);
 
         int input = get_input();
@@ -361,6 +358,7 @@ public class PlaneManagement {
     public static int get_input(){
         int input =0;
         try {
+            System.out.println("Enter an option between 0-6:");
             input = scanner.nextInt();
             scanner.nextLine();
 

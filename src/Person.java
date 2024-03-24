@@ -1,7 +1,4 @@
 public class Person {
-
-
-
    private String name;
    private String surname;
    private String email;
@@ -11,8 +8,6 @@ public class Person {
         this.surname = surname;
         this.email = email;
     }
-
-
 
     public String getName() {
         return name;
